@@ -30,10 +30,46 @@ This repository is used for assessment purposes in the image enhancement task. T
 The three types will be compared one by one
 
 ## 🚀&nbsp;&nbsp;Quickstart
-> In using this repository, it is recommended to use a virtual environment (**Anaconda**) or use the **Docker Image** that has been provided..
+> In using this repository, it is recommended to use a virtual environment (**Anaconda**) or use the **Docker Image** that has been provided.
+
+### 💎&nbsp;&nbsp;Installation
+> The steps will install the required dependencies
+> 
+1. Clone repository
+```bash
+git clone https://github.com/ruhyadi/assessment-image-enchancment
+```
+2. Install requirements inside Virtual Env (details in [miniconda](https://docs.conda.io/en/latest/miniconda.html))
+```bash
+cd assessment-image-enchancment
+pip install -r requirements.txt
+```
+3. Install **BasicSR**
+```bash
+cd BasicSR
+python setup.py develop
+```
+4. Download ESRGAN Pretrained Model
+```bash
+python scripts/download_pretrained_models.py ESRGAN
+```
 
 ### 🍿&nbsp;&nbsp;Inference
 > Intentionally left blank, will be filled later
+
+#### GAN
+```bash
+python BasicSR/inference/inference_esrgan.py \
+  --model_path BasicSR/experiments/pretrained_models/ESRGAN/ESRGAN_SRx4_DF2KOST_official-ff704c30.pth \
+  --input assets
+```
+
+#### Thresholding
+```bash
+python thresholding.py \
+  --input assets/001.png \
+  --output results/001-thres.png
+```
 
 ## ❤️&nbsp;&nbsp;Acknowledgement
 
