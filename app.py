@@ -4,7 +4,7 @@ import os
 import json
 import matplotlib.pyplot as plt
 
-from enhancement import process, save_configs
+from enhancement import Enhancement
 
 def app():
     """stramlit app"""
@@ -53,13 +53,27 @@ def app():
     intermediate_path = os.path.join("results", "inter_" + input_image.name)
     processed_path = os.path.join("results", "thresholded_" + input_image.name)
 
+    # initialize enhancement class
+    enhancement = Enhancement(
+        img_path=input_save_path,
+        inter_path=intermediate_path,
+        output_path=processed_path,
+        equalizer=equalizer,
+        clahe=clahe,
+        clahe_cliplimit=clahe_slider,
+        ksize=ksize,
+        alpha=alpha,
+        beta=beta,
+        threshold=threshold
+    )
+
     col3 = st.columns([5, 1])
     with col3[1]:
         save_configs_btn = st.button("Save configs")
 
     if save_configs_btn:
         with st.spinner("Saving configs..."):
-            save_configs(
+            enhancement.save_configs(
                 configs={
                     "equalizer": equalizer,
                     "clahe": clahe,
@@ -80,18 +94,7 @@ def app():
                 f.write(output_image.getbuffer())      
 
         # process image, return histogram
-        hist = process(
-            img_path=input_save_path,
-            inter_path=intermediate_path,
-            output_path=processed_path,
-            equalizer=equalizer,
-            clahe=clahe,
-            clahe_cliplimit=clahe_slider,
-            ksize=ksize,
-            alpha=alpha,
-            beta=beta,
-            threshold=threshold
-        )
+        hist = enhancement.enhance()
 
         col = st.columns(4)
         with col[0]:

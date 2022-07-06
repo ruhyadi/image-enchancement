@@ -27,11 +27,11 @@ This repository is used for assessment purposes in the image enhancement task. T
 - Enhancement using GAN (Generative Adversarial Network) and OpenCV Python
 
 ## 🚀&nbsp;&nbsp;Quickstart
-> In using this repository, it is recommended to use a virtual environment (**Anaconda**) or use the **Docker Image** that has been provided.
+> In using this repository, it is recommended to use a virtual environment (**Anaconda**).
 
 ### 💎&nbsp;&nbsp;Installation
 > The steps will install the required dependencies
-> 
+
 1. Clone repository
 ```bash
 git clone https://github.com/ruhyadi/assessment-image-enchancment
@@ -52,9 +52,8 @@ python scripts/download_pretrained_models.py ESRGAN
 ```
 
 ### 🍿&nbsp;&nbsp;Inference
-> Intentionally left blank, will be filled later
 
-#### Enchancement with OpenCV
+#### 🥊&nbsp;&nbsp;Enchancement with OpenCV
 I have provided a GUI application that can be used for this purpose. The application can be accessed by:
 ```bash
 streamlit run app.py
@@ -101,7 +100,7 @@ optional arguments:
                         Threshold
 ```
 
-#### Generative Adversarial Network (GAN)
+#### 🎯&nbsp;&nbsp;Generative Adversarial Network (GAN)
 Enhancement can also use GAN. The GAN function here **does not directly** get the thresholding of the image, but as an intermediate for upscaling the image first. The GAN command can be executed with:
 
 ```bash
