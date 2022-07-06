@@ -4,7 +4,7 @@ import os
 import json
 import matplotlib.pyplot as plt
 
-from thresholding import process, save_configs
+from enhancement import process, save_configs
 
 def app():
     """stramlit app"""

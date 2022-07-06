@@ -1,38 +1,8 @@
-"""Image thresholding with opencv"""
+"""Image enhancement with opencv"""
 import cv2
 import argparse
 import os
 import json
-
-
-def process2(input, output, threshold):
-    # Load the image
-    img = cv2.imread(input)
-    smooothed = blur(img, output, ksize=5, sigma=1.5)
-
-    # kernel_emboss = np.array([[-2, -1, 0],
-    #                         [-1, 1, 1],
-    #                         [0, 1, 2]])
-
-    # emboss_image = cv2.filter2D(smoothed, -1, kernel_emboss)
-
-    # Convert to grayscale
-    gray = cv2.cvtColor(unsharped, cv2.COLOR_BGR2GRAY)
-
-    # equalizer
-    gray = cv2.equalizeHist(gray)
-
-    # clahe = cv2.createCLAHE(clipLimit=1.0, tileGridSize=(1, 1))
-    # gray = clahe.apply(gray)
-
-    # Apply thresholding
-    ret, thresh = cv2.threshold(gray, threshold, 255, cv2.THRESH_BINARY_INV)
-
-    # thresh = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY_INV, 27, 2)
-
-    # Save the image
-    cv2.imwrite(output, thresh)
-
 
 def process(img_path, inter_path, output_path, equalizer, clahe, clahe_cliplimit, alpha, beta, ksize, threshold):
     """process image"""
@@ -97,9 +67,18 @@ def save_configs(configs, output_path):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Image thresholding with opencv")
-    parser.add_argument("--input", type=str, help="Input image")
-    parser.add_argument("--output", type=str, help="Output image")
+    # argument parser
+    parser = argparse.ArgumentParser(description="Image enhancement")
+    parser.add_argument("--img_path", default="/assets/input.png", help="Path to image")
+    parser.add_argument("--inter_path", default="/assets/intermediate.png", help="Path to intermediate image")
+    parser.add_argument("--output_path", default="/assets/results.png", help="Path to output image")
+    parser.add_argument("--equalizer", action="store_true", help="Equalize histogram")
+    parser.add_argument("--clahe", action="store_true", help="CLAHE")
+    parser.add_argument("--clahe_cliplimit", type=float, default=2.0, help="CLAHE clip limit")
+    parser.add_argument("--alpha", type=float, default=1.5, help="Alpha")
+    parser.add_argument("--beta", type=float, default=-0.5, help="Beta")
+    parser.add_argument("--ksize", type=int, default=11, help="Ksize")
+    parser.add_argument("--threshold", type=int, default=170, help="Threshold")
     args = parser.parse_args()
-
+    
     process(args.input, args.output)

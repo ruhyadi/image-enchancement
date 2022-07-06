@@ -15,19 +15,16 @@
 ## 📼&nbsp;&nbsp;Demo
 <div align="center">
 
-Intentionally left blank, will be filled later
+[demo](assets/demo.gif)
 
 </div>
 
 ## 📌&nbsp;&nbsp;Introduction
 
-This repository is used for assessment purposes in the image enhancement task. There are three types of enhancements used:
+This repository is used for assessment purposes in the image enhancement task. There are two types of enhancements used:
 
 - Enhancement using OpenCV Python
-- Enhancement using OpenCV C++
-- Enhancement using GAN (Generative Adversarial Network)
-
-The three types will be compared one by one
+- Enhancement using GAN (Generative Adversarial Network) and OpenCV Python
 
 ## 🚀&nbsp;&nbsp;Quickstart
 > In using this repository, it is recommended to use a virtual environment (**Anaconda**) or use the **Docker Image** that has been provided.
@@ -57,19 +54,71 @@ python scripts/download_pretrained_models.py ESRGAN
 ### 🍿&nbsp;&nbsp;Inference
 > Intentionally left blank, will be filled later
 
-#### GAN
+#### Enchancement with OpenCV
+I have provided a GUI application that can be used for this purpose. The application can be accessed by:
+```bash
+streamlit run app.py
+```
+In the application you can input **the input image** and **the ground-truth image**. The application will process the image into an intermediate image and an output image. Inside the application there are sliders and buttons that can be combined to produce the best enhancement results.
+For details see the demo section.
+
+The enhancement function can also be accessed via `enhancement.py`scripts:
+```bash
+python enhancement.py \
+  --img_path /assets/input.png \
+  --inter_path /assets/intermediate.png \
+  --output_path /assets/results.png \
+  --alpha 1.5 \
+  --beta -0.5 \
+  --ksize 11 \
+  --threshold 170 \
+  --clahe \
+  --clahe_cliplimit 2.0 \
+  --equalizer
+```
+with the help:
+```bash
+usage: enhancement.py [-h] [--img_path IMG_PATH] [--inter_path INTER_PATH] [--output_path OUTPUT_PATH] [--equalizer] [--clahe]
+                      [--clahe_cliplimit CLAHE_CLIPLIMIT] [--alpha ALPHA] [--beta BETA] [--ksize KSIZE] [--threshold THRESHOLD]
+
+Image enhancement
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --img_path IMG_PATH   Path to image
+  --inter_path INTER_PATH
+                        Path to intermediate image
+  --output_path OUTPUT_PATH
+                        Path to output image
+  --equalizer           Equalize histogram
+  --clahe               CLAHE
+  --clahe_cliplimit CLAHE_CLIPLIMIT
+                        CLAHE clip limit
+  --alpha ALPHA         Alpha
+  --beta BETA           Beta
+  --ksize KSIZE         Ksize
+  --threshold THRESHOLD
+                        Threshold
+```
+
+#### Generative Adversarial Network (GAN)
+Enhancement can also use GAN. The GAN function here **does not directly** get the thresholding of the image, but as an intermediate for upscaling the image first. The GAN command can be executed with:
+
 ```bash
 python BasicSR/inference/inference_esrgan.py \
   --model_path BasicSR/experiments/pretrained_models/ESRGAN/ESRGAN_SRx4_DF2KOST_official-ff704c30.pth \
   --input assets
 ```
 
-#### Thresholding
-```bash
-python thresholding.py \
-  --input assets/001.png \
-  --output results/001-thres.png
-```
+The results of upscaling the image using GAN can be seen in the table below:
+
+|Input Image|GAN Results|
+|:--:|:--:|
+|[head](assets/head.png)|[head-gan](assets/head_ESRGAN.png)|
+|[before](assets/input.png)|[output](assets/001_ESRGAN.png)|
+
+The results of the GAN look not very effective for the image in the second row, this is because the GAN is very dependent on the image data being trained, maybe the training data itself does not have the same image as the second row.
+
 
 ## ❤️&nbsp;&nbsp;Acknowledgement
 
