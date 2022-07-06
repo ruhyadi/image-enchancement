@@ -15,7 +15,7 @@
 ## 📼&nbsp;&nbsp;Demo
 <div align="center">
 
-[demo](assets/demo.gif)
+![demo](assets/demo.gif)
 
 </div>
 
@@ -114,8 +114,8 @@ The results of upscaling the image using GAN can be seen in the table below:
 
 |Input Image|GAN Results|
 |:--:|:--:|
-|[head](assets/head.png)|[head-gan](assets/head_ESRGAN.png)|
-|[before](assets/input.png)|[output](assets/001_ESRGAN.png)|
+|![head](assets/head.png)|![head-gan](assets/head_ESRGAN.png)|
+|![before](assets/input.png)|![output](assets/001_ESRGAN.png)|
 
 The results of the GAN look not very effective for the image in the second row, this is because the GAN is very dependent on the image data being trained, maybe the training data itself does not have the same image as the second row.
 
